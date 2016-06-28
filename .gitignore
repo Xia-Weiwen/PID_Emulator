@@ -27,3 +27,13 @@
 *.exe
 *.out
 *.app
+
+#makefiles
+Makefile
+Makefile.*
+
+#Qt files
+*.pro.user
+debug/*
+release/*
+.qmake.stash

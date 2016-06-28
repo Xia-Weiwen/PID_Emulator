@@ -34,16 +34,16 @@
       <property name="geometry">
        <rect>
         <x>30</x>
-        <y>190</y>
+        <y>185</y>
         <width>561</width>
         <height>29</height>
        </rect>
       </property>
       <property name="minimum">
-       <number>-1000</number>
+       <number>-10000</number>
       </property>
       <property name="maximum">
-       <number>1000</number>
+       <number>10000</number>
       </property>
       <property name="value">
        <number>0</number>
@@ -58,7 +58,7 @@
        <enum>QSlider::TicksAbove</enum>
       </property>
       <property name="tickInterval">
-       <number>100</number>
+       <number>1000</number>
       </property>
      </widget>
      <widget class="QLabel" name="lblLowerLimit">
@@ -398,6 +398,22 @@
        </property>
       </widget>
      </widget>
+     <widget class="QLabel" name="lblOrigin">
+      <property name="geometry">
+       <rect>
+        <x>280</x>
+        <y>160</y>
+        <width>60</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>0</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="SpeedTab">
      <attribute name="title">
@@ -432,9 +448,9 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>330</y>
+      <y>320</y>
       <width>191</width>
-      <height>20</height>
+      <height>30</height>
      </rect>
     </property>
     <property name="text">
@@ -450,7 +466,7 @@
       <x>510</x>
       <y>320</y>
       <width>99</width>
-      <height>27</height>
+      <height>30</height>
      </rect>
     </property>
     <property name="text">
@@ -482,7 +498,7 @@
      <x>0</x>
      <y>0</y>
      <width>651</width>
-     <height>31</height>
+     <height>26</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuAbout">

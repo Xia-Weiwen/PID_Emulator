@@ -7,6 +7,9 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     initGUI();
+    pid = new PIDThread;
+    connect(ui->sldPosition, SIGNAL(valueChanged(int)), pid, SLOT(setCurrentPosition(int)));
+    connect(pid, SIGNAL(updatePosition(int)), ui->sldPosition, SLOT(setValue(int)));
 }
 
 MainWindow::~MainWindow()
@@ -16,6 +19,8 @@ MainWindow::~MainWindow()
 
 void MainWindow::initGUI()
 {
+    // set title
+    setWindowTitle("Simple PID Emulator");
     // move window to center
     move((QApplication::desktop()->width() - width()) / 2,
          (QApplication::desktop()->height() - height()) / 2);
@@ -50,7 +55,10 @@ void MainWindow::on_btnSetPos_clicked()
         ui->lblWarning->setText("<font color=\"red\">Warning: Position out of range!</font>");
         return;
     }
-    ui->sldPosition->setValue(ui->lblCurTarget->text().toInt());
+    pid->clearData();
+    pid->setTargetPosition(ui->lblCurTarget->text().toInt());
+//    ui->sldPosition->setValue(ui->lblCurTarget->text().toInt());
+    pid->start();
 }
 
 void MainWindow::on_btnSetPID_clicked()
@@ -58,9 +66,17 @@ void MainWindow::on_btnSetPID_clicked()
     ui->lblPosCurP->setText(ui->editP->text());
     ui->lblPosCurI->setText(ui->editI->text());
     ui->lblPosCurD->setText(ui->editD->text());
+    pid->setPIDParameters(ui->lblPosCurP->text().toDouble(),
+                          ui->lblPosCurI->text().toDouble(),
+                          ui->lblPosCurD->text().toDouble());
 }
 
 void MainWindow::on_btnQuit_clicked()
 {
     qApp->quit();
+}
+
+void MainWindow::on_sldPosition_valueChanged(int value)
+{
+    ui->lblOrigin->setText(QString::number(value / 10.0, 'f', 1));
 }

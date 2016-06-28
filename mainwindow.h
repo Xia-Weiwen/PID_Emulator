@@ -26,8 +26,11 @@ private slots:
 
     void on_btnQuit_clicked();
 
+    void on_sldPosition_valueChanged(int value);
+
 private:
     Ui::MainWindow *ui;
+    PIDThread* pid;
 
 private:
     void initGUI();
