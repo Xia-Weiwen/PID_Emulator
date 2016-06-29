@@ -10,6 +10,7 @@ MainWindow::MainWindow(QWidget *parent) :
     pid = new PIDThread;
     connect(ui->sldPosition, SIGNAL(valueChanged(int)), pid, SLOT(setCurrentPosition(int)));
     connect(pid, SIGNAL(updatePosition(int)), ui->sldPosition, SLOT(setValue(int)));
+    connect(pid, SIGNAL(updatePosition(int)), this, SLOT(updateChart(int)));
 }
 
 MainWindow::~MainWindow()
@@ -57,6 +58,7 @@ void MainWindow::on_btnSetPos_clicked()
     }
     pid->clearData();
     pid->setTargetPosition(ui->lblCurTarget->text().toInt());
+    ui->widPosChart->clearRecord();
 //    ui->sldPosition->setValue(ui->lblCurTarget->text().toInt());
     pid->start();
 }
@@ -79,4 +81,18 @@ void MainWindow::on_btnQuit_clicked()
 void MainWindow::on_sldPosition_valueChanged(int value)
 {
     ui->lblOrigin->setText(QString::number(value / 10.0, 'f', 1));
+}
+
+void MainWindow::DrawPosChart(int newPos)
+{
+    int position =  -newPos / 10000.0 * ui->widPosChart->height() / 2
+                 + ui->widPosChart->height() / 2;
+//    qDebug("pos: %d, %d", position, newPos);
+    ui->widPosChart->insertPosValue(position);
+    ui->widPosChart->update();
+}
+
+void MainWindow::updateChart(int newPos)
+{
+    DrawPosChart(newPos);
 }

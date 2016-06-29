@@ -7,6 +7,8 @@ PIDThread::PIDThread() :
     error_this_time = 0;
     error_last_time = 0;
     error_integral = 0;
+
+    finalStateCount = 0;
 }
 
 void PIDThread::run()
@@ -18,6 +20,7 @@ void PIDThread::run()
         error_this_time = targetPosition - currentPosition;
         error_integral += error_this_time;
         double speed = calculateSpeed();
+        if (checkEnd(speed)) this->terminate();
         emit updatePosition(RND((currentPosition + speed) * 10));
     }
 }
@@ -41,4 +44,19 @@ void PIDThread::clearData()
     error_integral = 0;
     error_last_time = 0;
     error_this_time = 0;
+}
+
+bool PIDThread::checkEnd(double speed)
+{
+    if (speed < 0.05 && speed > -0.05)
+    {
+        finalStateCount++;
+    }
+    else
+    {
+        finalStateCount = 0;
+    }
+    if (finalStateCount >= 100)
+        return true;
+    return false;
 }

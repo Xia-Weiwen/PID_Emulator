@@ -14,9 +14,11 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    pidthread.cpp
+    pidthread.cpp \
+    poschart.cpp
 
 HEADERS  += mainwindow.h \
-    pidthread.h
+    pidthread.h \
+    poschart.h
 
 FORMS    += mainwindow.ui

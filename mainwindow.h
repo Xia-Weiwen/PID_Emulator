@@ -28,12 +28,15 @@ private slots:
 
     void on_sldPosition_valueChanged(int value);
 
+    void updateChart(int newPos);
+
 private:
     Ui::MainWindow *ui;
     PIDThread* pid;
 
 private:
     void initGUI();
+    void DrawPosChart(int newPos);
 };
 
 #endif // MAINWINDOW_H

@@ -32,8 +32,10 @@ private:
     double proportion, integral, derivative; // pid coefficients
     double error_this_time, error_last_time; // the most recent 2 errors (between target and current value)
     double error_integral; // accumulated error
+    int finalStateCount;
 private:
     double calculateSpeed();
+    bool checkEnd(double speed);
 };
 
 #endif // PIDTHREAD_H
